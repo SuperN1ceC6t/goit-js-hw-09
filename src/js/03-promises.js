@@ -11,20 +11,24 @@ formRef.addEventListener('submit', onSubmitForm);
 function onSubmitForm(e) {
   e.preventDefault();
 
+  let step = Number(formRef.step.value)
   let delay = Number(formRef.delay.value);
+  let amount = Number(formRef.amount.value);
 
-  for (let i = 1; i <= formRef.amount.value; i += 1) {
-    createPromise(i, delay)
-      .then(({ position, delay }) => {
-        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({ position, delay }) => {
-        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-      });
-    delay += Number(formRef.step.value);
+  if (delay < 0 || amount <= 0 || step < 0) { Notify.failure(`❌ Enter a different positive values`) }
+  else {
+    for (let i = 1; i <= amount; i += 1) {
+      createPromise(i, delay)
+        .then(({ position, delay }) => {
+          Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        })
+        .catch(({ position, delay }) => {
+          Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        });
+      delay += Number(step);
+    }
   }
 }
-
 // Create promise
 function createPromise(position, delay) {
   const obj = { position, delay };

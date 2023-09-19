@@ -111,8 +111,8 @@ function startTimer() {
 
 // Rendering date
 function renderDate(formatDate) {
-  secondsRef.textContent = formatDate.seconds;
-  minutesRef.textContent = formatDate.minutes;
-  hoursRef.textContent = formatDate.hours;
-  daysRef.textContent = formatDate.days;
+  secondsRef.textContent = String(formatDate.seconds).padStart(2,"0")
+  minutesRef.textContent = String(formatDate.minutes).padStart(2,"0")
+  hoursRef.textContent = String(formatDate.hours).padStart(2,"0")
+  daysRef.textContent = String(formatDate.days).padStart(2,"0")
 }
